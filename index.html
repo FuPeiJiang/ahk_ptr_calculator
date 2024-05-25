@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ahk ptr calculator</title>
+</head>
+<body>
+<script>
+    function create_input(placeholder) {
+        const input = document.createElement("input")
+        input.setAttribute("type","number")
+        input.setAttribute("placeholder",placeholder)
+        function handleChange() {
+            const x86_64_val = x86_64_input.valueAsNumber
+            const x86_val = x86_input.valueAsNumber
+
+            const constPart = 2*x86_val-x86_64_val
+            p.textContent = `A_PtrSize*${(x86_64_val-x86_val)/4}${constPart < 0 ? "-" : "+"}0x${Math.abs(constPart).toString(16)}`
+        }
+        input.addEventListener("keydown",()=>setTimeout(handleChange,1))
+        return input
+    }
+    const x86_64_input = create_input("x86_64")
+    const x86_input = create_input("x86")
+
+    const p = document.createElement("p")
+
+    document.body.append(x86_64_input,x86_input,p)
+</script>
+</body>
+</html>
