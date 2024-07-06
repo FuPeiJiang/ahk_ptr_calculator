@@ -9,11 +9,11 @@
 <script>
     function create_input(placeholder) {
         const input = document.createElement("input")
-        input.setAttribute("type","number")
+        input.setAttribute("type","text") //type: "number" doesn't support hex (0x) numbers
         input.setAttribute("placeholder",placeholder)
         function handleChange() {
-            const x86_64_val = x86_64_input.valueAsNumber
-            const x86_val = x86_input.valueAsNumber
+            const x86_64_val = parseInt(x86_64_input.value)
+            const x86_val = parseInt(x86_input.value)
 
             const constPart = 2*x86_val-x86_64_val
             p.textContent = `A_PtrSize*${(x86_64_val-x86_val)/4}${constPart < 0 ? "-" : "+"}0x${Math.abs(constPart).toString(16)}`
